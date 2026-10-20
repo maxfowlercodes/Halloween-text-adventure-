@@ -5,17 +5,19 @@ from playsound import playsound
 
 xp = 0
 pumpkins = 0
-XP_BOOST = 2
-MIDNIGHT_BOOST = 5
+MIDNIGHT_BOOST = 500
 start_system_confirmed = False
 name = ""
+game_running = False
 
 
 def game_start(start_system_confirmed):
     print("For best experience, please set audio to 60%. For each question answered you get a random amount of XP 1-20. ")
+    print("Time: 10PM")
     name = input("Welcome to the adventure, what is your name explorer? ")
     time.sleep(0.5)
     print(f"Welcome {name}, it's great to meet you - my name is Barry...")
+    game_running = True
     time.sleep(1)
     while start_system_confirmed == False:
         start_system = input("Are you ready to start? (yes/no) ")
@@ -31,7 +33,7 @@ def game_start(start_system_confirmed):
         elif start_system.lower().strip() ==  "no" or start_system.lower().strip() == "n":
                     print(f"See you soon {name}")
                     playsound('death.mp3', block=False)
-                    death(name)
+                    death(name, xp, pumpkins)
         
         else:
             print("Please enter yes or no. ")
@@ -66,7 +68,7 @@ def forest(xp, name):
             print()
             forest_choices_made = False
             while forest_choices_made == False:
-                forest_choice_two = input("Do you go an lift the rock up? (yes/no) ")
+                forest_choice_two = input("Do you go and lift the rock up? (yes/no) ")
                 if forest_choice_two.strip().lower() == "yes" or forest_choice_two.strip().lower() == "y":
                     print()
                     xp = xp + random.randint(1,20)
@@ -81,13 +83,14 @@ def forest(xp, name):
                         print("The golbin accepts your offer.")
                         xp = xp - xp_question_one
                         print(f"You now have {xp} XP.")
+                        
                         time.sleep(1)
                     elif xp_question_one >= 20:
                         print("The goblin did accept your offer, but you did not have enough to pay them.")
-                        death(name, xp)
+                        death(name, xp, pumpkins)
                     else:
                         print("The goblin did not accept your offer...")
-                        death(name, xp)
+                        death(name, xp, pumpkins)
 
                     time.sleep(0.5)
                     extra_xp = random.randint(20,50)
@@ -103,6 +106,7 @@ def forest(xp, name):
 
                 print()
                 print("You keep walking, and see a building outline.")
+                print("Time: 11:30PM")
                 print()
                 time.sleep(1)
                 forest_choice_three = input("Do you walk towards it or keep moving? (towards/continue) ")
@@ -123,7 +127,7 @@ def forest(xp, name):
                     time.sleep(0.9)
                     print()
                     print("Everything is spinning. It seems there was a goblin waiting for you to continue walking... ")
-                    death(name, xp)
+                    death(name, xp, pumpkins)
 
 
         elif forest_choice_one.strip().lower() == "leave":
@@ -136,7 +140,32 @@ def forest(xp, name):
 
 def old_hotel(name, xp, forest_choices_made):
     forest_choices_made = True
-    print("Old Hotel")
+    print("Time: 12AM - Unlocked XP boost for surviving. + 500 XP")
+    xp = xp + MIDNIGHT_BOOST
+    print(f"You now have {xp}XP")
+    print()
+    print("The sign reads - Bludberry Castle ")
+    print("Porter: Welcome {name}, are you looking for a room for tonight? (yes/no)")
+    porter_chat_one = input("Your Answer: ")
+    if porter_chat_one.strip().lower() == "yes" or porter_chat_one.strip().lower() == "y":
+        print("Porter: Perfect, we have 2 options the Deluxe Suite or Standard Room.")
+        print()
+        print("Select Either Deluxe/Standard/Neither ")
+        porter_chat_two = input("Your answer: ")
+        if porter_chat_two.strip().lower == "deluxe":
+            print("Porter: That will cost you 300XP.")
+            xp = xp - 300
+            print("-300XP - XP is now {xp}")
+        elif porter_chat_two.strip().lower() == "standard":
+            print("Porter: That will cost you 200XP. ")
+            xp = xp - 200
+            print("-200XP - XP is now {xp}")
+        elif porter_chat_two.strip().lower() == "neither":
+            print("Porter: How dare you come in here, and not stay a night. ")
+            print()
+            print("Porter: You can now live here for FOREVER...")
+            print("...")
+            death(xp, name, pumpkins)
 
 def bedroom():
     print("Bedroom.")
@@ -148,10 +177,11 @@ def graveyard(name, xp, forest_choices_made):
     forest_choices_made = True
     print("Graveyard.")
 
-def death(name, xp):
+def death(name, xp, pumpkins):
     playsound('death.mp3', block=False)
+    game_running = False
     time.sleep(4)
-    print(f"{name} died with {xp} experience points. ")
+    print(f"{name} died with {xp} experience points and {pumpkins} Pumpkins. ")
     sys.exit()
 
 name = game_start(start_system_confirmed)
