@@ -52,23 +52,37 @@ def forest():
     while choicemade == False:
         time.sleep(0.5)
         forest_choice_one = input("Do you want to go deeper into the forest or leave? (deeper/leave) ")
-        try:
-            if forest_choice_one == "deeper":
-
-
-
-
-                choicemade = True
-            elif forest_choice_one == "leave":
-
-
-
-
-
-                choicemade = True
-        except:
-            print("You are too far in, you can only go deeper or leave. (deeper/leave)")
+        if forest_choice_one.strip().lower() == "deeper":
+            xp = xp + 10
+            print(f"{name} creeps deeper into the forest...")
+            time.sleep(1)
+            print("The path is rocky, very jagged and rough...")
+            time.sleep(1)
+            print("You keep your head down, walking anyway.")
+            time.sleep(5)
+            print("Out of the corner of your eye, you see a glowing pulse under a large rock...")
             choicemade = False
+            while choicemade == False:
+                forest_choice_two = input("Do you go an lift the rock up? (yes/no) ")
+                if forest_choice_two.strip().lower() == "yes" or forest_choice_two.strip().lower() == "y":
+                    print("You walk over towards the rock.")
+                    time.sleep(0.5)
+
+
+                     
+
+
+
+                choicemade = True
+
+                elif forest_choice_one.strip().lower() == "leave":
+                    xp = xp + 10
+
+
+
+
+                choicemade = True
+
 
 def old_hotel():
     print("Old Hotel")

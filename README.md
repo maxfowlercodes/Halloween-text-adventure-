@@ -1,6 +1,8 @@
 # Halloween Text-Based Adventure 
 
 **Imports**
+
+
 All imports apart from playsound are a python standard import already included. Please run this command before running the script.
 > pip install playsound==1.2.2
 
