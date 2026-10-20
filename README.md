@@ -6,7 +6,9 @@ All imports apart from playsound are a python standard import already included. 
 
 # How to run
 
-**Github GLI**
+**Github CLI**
 >gh repo clone maxfowlercodes/Halloween-text-adventure- 
+
+
 **Git installed**
 >git init, git pull https://github.com/maxfowlercodes/Halloween-text-adventure-.git main
