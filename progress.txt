@@ -1,0 +1,11 @@
+Notes:
+
+Welcome screen has been built, alongside forest being fully built.
+
+Old hotel has been started and progression is moving.
+
+Next Up - Bedroom, Nursery, Graveyard. 
+
+Death function has been fully built with audio and stats showing.
+
+Need to build pumpkin system
