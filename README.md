@@ -3,7 +3,7 @@
 **Imports**
 
 
-All imports apart from playsound are a python standard import already included. Please run this command before running the script.
+All imports apart from playsound are a python standard import already included. Please run this command before running the script, this is required for the audio/sound effects to run. 
 > pip install playsound==1.2.2
 
 # How to run
