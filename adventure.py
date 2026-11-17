@@ -8,6 +8,7 @@ MIDNIGHT_BOOST = 500
 start_system_confirmed = False
 name = ""
 game_running = False
+running_list = [0, 0, 0, 20, 30, 40, 50, 60]
 
 
 def game_start(start_system_confirmed):
@@ -122,6 +123,7 @@ def forest(xp, name):
                 if forest_choice_three.lower().strip() == "towards" or forest_choice_three.lower().strip() == "t":
                     xp = xp + random.randint(1,20)
                     print("You walk towards the building, lit with old lights flickering...")
+                    time.sleep(0.5)
                     old_hotel(name, xp, forest_choices_made)
 
                 elif forest_choice_three.lower().strip() == "continue" or forest_choice_three.lower().strip() == "c":
@@ -153,6 +155,7 @@ def forest(xp, name):
 def old_hotel(name, xp, forest_choices_made):
     forest_choices_made = True
     print("Time: 12AM - Unlocked XP boost for surviving. + 500 XP")
+    time.sleep(0.5)
     xp = xp + MIDNIGHT_BOOST
     print(f"You now have {xp}XP")
     print()
@@ -160,7 +163,7 @@ def old_hotel(name, xp, forest_choices_made):
 
     
 
-    print("Porter: Welcome {name}, are you looking for a room for tonight? (yes/no)")
+    print(f"Porter: Welcome {name}, are you looking for a room for tonight? (yes/no)")
     porter_chat_one = input("Your Answer: ")
     if porter_chat_one.strip().lower() == "yes" or porter_chat_one.strip().lower() == "y":
         print("Porter: Perfect, we have 2 options the Deluxe Suite or Standard Room.")
@@ -176,10 +179,12 @@ def old_hotel(name, xp, forest_choices_made):
 
         elif porter_chat_two.strip().lower() == "standard":
             print("Porter: That will cost you 200XP. ")
+            time.sleep(0.5)
             xp = xp - 200
             print("-200XP - XP is now {xp}")
         elif porter_chat_two.strip().lower() == "neither":
             print("Porter: How dare you come in here, and not stay a night. ")
+            time.sleep(0.5)
             print()
             print("Porter: You can now live here for FOREVER...")
             print("...")
@@ -187,16 +192,44 @@ def old_hotel(name, xp, forest_choices_made):
 
 def bedroom():
     print(f"Welcome {name}, here is your room for the night. ")
+    time.sleep(0.5)
     print("SLAM - All goes silent, your all alone now.")
     print("")
+    time.sleep(0.5)
+    print("On your table lies a board game, ready to play.")
+    print("-" * 20)
+    print(f"Welcome {name}, let's play...")
+    print("-" * 20)
+    time.sleep(0.5)
+    print("")
+    print("If you land on 0, you die... but if you land on any other number you win that amount of XP.")
+    times = int(input("How many times would you like to spin? (0-10)"))
+    time.sleep(0.5)
+    try:
+        if times <= 10 or times >= 0:
+            for i in range(times):
+                time.sleep(0.5)
+                random_number = random.randint(1,10)
+                if random_number == 0:
+                    print("You landed on 0... ")
+                    death(name, xp)
+                else:
+                    xp = xp + random_number
+                    print(f"Gained {random_number} XP.")
+    except:
+        print("Please enter a number 0-10")
+        
+    alive(name, xp)
     
     
-
+    
 def graveyard(name, xp, forest_choices_made):
-    
-
-    forest_choices_made = True
-    print("Graveyard.")
+    print(f"Silly {name}, you walked right into this one...")
+    time.sleep(0.5)
+    print("You can slowly hear groaning all around you, but your too far in.")
+    time.sleep(0.5)
+    print("The graveyard has taken you, as the newest victim.")
+    death(name, xp)
 
 def death(name, xp):
     playsound('death.mp3', block=False)
@@ -205,5 +238,16 @@ def death(name, xp):
     print(f"{name} died with {xp} experience points.")
     print("See you next time...")
     sys.exit()
+    
+    
+def alive(name, xp):
+    print(f"Well {name}, you lasted a long time and managed to survive haloween night.")
+    print("But how well did you really do?")
+    time.sleep(0.5)
+    print("-" * 20)
+    print(f"XP: {xp}")
+    print("-" * 20)
+    time.sleep(0.5)
+    print("Congratulations, and happy haloween!")
 
 name = game_start(start_system_confirmed)
